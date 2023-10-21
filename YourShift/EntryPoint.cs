@@ -12,6 +12,10 @@ using System.Web;
 using System.Reflection;
 using YourShift.VersionCheckers;
 using System.Security.Policy;
+using LSPD_First_Response.Mod.Callouts;
+using LSPD_First_Response.Engine.Scripting.Entities;
+using LSPD_First_Response.Engine;
+using System.Runtime.InteropServices.ComTypes;
 
 [assembly: Rage.Attributes.Plugin("YourShift", Description = "A plugin that shows you how long your shift lasts.", Author = "TheGreenCraft")]
 
@@ -27,12 +31,13 @@ namespace YourShift
         public static int lunch = shiftstopp / 2;
         public static int lunchend = (shiftstopp / 2) + 5;
         public static int shiftend = shiftstopp - 5;
-        public static int breaktime = 5;
+        public static int breaktime = 5; 
         public static string language = "EN";
         public static string callsign = "Unknown Callsign";
         public static string message = "1st";
         public static string police = "unknown";
         public static bool error = false;
+        public static bool waypointset = true;
 
         private static GameFiber lunchTimer;
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
@@ -48,7 +53,8 @@ namespace YourShift
 
             callsign = iniFile.ReadString("Callsign", "Callsign", callsign);
             message = iniFile.ReadString("Message", "Message", message);
-            police = iniFile.ReadString("Message", "Police_Station", police);
+            police = iniFile.ReadString("Station", "Police_Station", police);
+            waypointset = iniFile.ReadBoolean("Station", "Waypoint", waypointset);
 
             shiftstopp = iniFile.ReadInt32("Configuration", "Shift_Stop", shiftstopp);
             notificationInterval = iniFile.ReadInt32("Configuration", "notificationInterval", notificationInterval);
@@ -203,6 +209,18 @@ namespace YourShift
             
             }
         }
+
+        public static void SetWaypoint()
+        {
+            if (waypointset)
+            {
+                Game.Waypoint(targetCoords.X, targetCoords.Y);
+                SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
+            }
+            Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
+        }
+
+
         public static void StartLunchBreak()
         {
             lunchEndTime = DateTime.Now + lunchDuration;
