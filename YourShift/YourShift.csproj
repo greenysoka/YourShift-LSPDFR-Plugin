@@ -52,10 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="Models\StatisticModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ILiteDBService.cs" />
-    <Compile Include="Services\StatisticsService.cs" />
     <Compile Include="settings.cs" />
     <Compile Include="VersionChecker\VersionChecker.cs" />
   </ItemGroup>
