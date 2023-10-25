@@ -14,13 +14,13 @@ namespace YourShift.Services
         private string GetConnectionString()
         {
             var path = System.IO.Directory.GetCurrentDirectory();
-            string fullpath = Path.Combine(path, statisticsString + ".db");
+            string fullpath = Path.Combine(path, statisticsString + "db");
             return fullpath;
         }
         public void Delete(StatisticModel entity)
         {
             var db = new LiteDatabase(GetConnectionString());
-            var statistics = db.GetCollection<StatisticModel>(statisticsString);
+            var statistics = db.GetCollection<StatisticModel>(GetConnectionString());
             statistics.EnsureIndex(x => x.Id);
             var itemToDelete = statistics.FindOne(x => x.Id == entity.Id);
             if (itemToDelete != null)
@@ -32,7 +32,7 @@ namespace YourShift.Services
         public void Delete(int id)
         {
             var db = new LiteDatabase(GetConnectionString());
-            var statistics = db.GetCollection<StatisticModel>(statisticsString);
+            var statistics = db.GetCollection<StatisticModel>(GetConnectionString());
             statistics.EnsureIndex(x => x.Id);
             var itemToDelete = statistics.FindOne(x => x.Id == id);
             if (itemToDelete != null)
@@ -44,7 +44,7 @@ namespace YourShift.Services
         public StatisticModel Get(StatisticModel entity)
         {
             var db = new LiteDatabase(GetConnectionString());
-            var statistc = db.GetCollection<StatisticModel>(statisticsString);
+            var statistc = db.GetCollection<StatisticModel>(GetConnectionString());
             statistc.EnsureIndex(x => x.Id);
             return statistc.FindById(entity.Id);
         }
@@ -52,7 +52,7 @@ namespace YourShift.Services
         public StatisticModel Get(int id)
         {
             var db = new LiteDatabase(GetConnectionString());
-            var statistc = db.GetCollection<StatisticModel>(statisticsString);
+            var statistc = db.GetCollection<StatisticModel>(GetConnectionString());
             statistc.EnsureIndex(x => x.Id);
             return statistc.FindById(id);
         }
@@ -61,7 +61,7 @@ namespace YourShift.Services
         {
             var db = new LiteDatabase(GetConnectionString());
 
-            var collection = db.GetCollection<StatisticModel>(statisticsString);
+            var collection = db.GetCollection<StatisticModel>(GetConnectionString());
 
             List<StatisticModel> statistics = collection.Query().ToList();
 
@@ -72,7 +72,7 @@ namespace YourShift.Services
         {
             var db = new LiteDatabase(GetConnectionString());
 
-            var collection = db.GetCollection<StatisticModel>(statisticsString);
+            var collection = db.GetCollection<StatisticModel>(GetConnectionString());
 
             collection.Insert(entity);
 
@@ -82,7 +82,7 @@ namespace YourShift.Services
         public void Update(StatisticModel entity)
         {
             var db = new LiteDatabase(GetConnectionString());
-            var statistics = db.GetCollection<StatisticModel>(statisticsString);
+            var statistics = db.GetCollection<StatisticModel>(GetConnectionString());
             statistics.EnsureIndex(x => x.Id);
             var itemToDelete = statistics.FindOne(x => x.Id == entity.Id);
             if (itemToDelete != null)
