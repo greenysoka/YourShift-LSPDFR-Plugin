@@ -212,12 +212,12 @@ namespace YourShift
 
         public static void SetWaypoint()
         {
-            if (waypointset)
-            {
-                Game.Waypoint(targetCoords.X, targetCoords.Y);
-                SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
-            }
-            Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
+           // if (waypointset)
+           // {
+           //     Game.Waypoint(targetCoords.X, targetCoords.Y);
+           //     SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
+           // }
+           // Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
         }
 
 
