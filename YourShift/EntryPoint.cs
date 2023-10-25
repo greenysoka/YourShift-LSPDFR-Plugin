@@ -494,7 +494,7 @@ namespace YourShift
                     }
                     else if (language.Equals("DE", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (shiftend == 0)
+                        if (send_shiftend == 0) //Fehlerkorrektur für Nachricht 
                         {
                             if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                             {
