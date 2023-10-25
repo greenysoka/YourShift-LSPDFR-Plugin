@@ -14,7 +14,7 @@ namespace YourShift.Services
         private string GetConnectionString()
         {
             var path = System.IO.Directory.GetCurrentDirectory();
-            string fullpath = Path.Combine(path, statisticsString + "db");
+            string fullpath = Path.Combine(path, statisticsString + ".db");
             return fullpath;
         }
         public void Delete(StatisticModel entity)
