@@ -9,13 +9,23 @@ namespace YourShift.Services
     public class StatisticsService : ILiteDBService<StatisticModel>
     {
 
-        private string statisticsString = "statistic";
+        private string statisticsString = "statistics";
 
+        // Current Bug: LiteDB can't create the Database, to diffrent aproaches :)
         private string GetConnectionString()
         {
-            var path = System.IO.Directory.GetCurrentDirectory();
-            string fullpath = Path.Combine(path, "statistics.db");
-            return fullpath;
+            try
+            {
+                var path = System.IO.Directory.GetCurrentDirectory();
+                string fullpath = Path.Combine(path, "statistic.db");
+                return fullpath;
+            }
+            catch
+            {
+                string path = @"C:\Temp\";
+                string fullpath = Path.Combine(path, "statistic.db");
+                return fullpath;
+            }
         }
         public void Delete(StatisticModel entity)
         {
