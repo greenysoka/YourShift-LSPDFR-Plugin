@@ -168,20 +168,23 @@ namespace YourShift
                 {
                     {
                         List<StatisticModel> models = new List<StatisticModel>();
-                        models = statisticsService.GetAll();
                         var model = new StatisticModel();
-                        if (models == null)
+                        try
                         {
-                            var m = new StatisticModel
-                            {
-                                Rank = Rank.Rooki,
-                                Shifts = 69
-                            };
-                            model = m;
-                        }
-                        else
-                        {
+                            models = statisticsService.GetAll();
                             model = models.First();
+                        }
+                        catch
+                        {
+                            if (models == null)
+                            {
+                                var m = new StatisticModel
+                                {
+                                    Rank = Rank.Rooki,
+                                    Shifts = 69
+                                };
+                                model = m;
+                            }
                         }
 
                         VersionChecker.isUpdateAvailable();
