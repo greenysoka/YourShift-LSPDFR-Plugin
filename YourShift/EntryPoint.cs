@@ -16,8 +16,8 @@ using LSPD_First_Response.Mod.Callouts;
 using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Engine;
 using System.Runtime.InteropServices.ComTypes;
-using YourShift.Models;
 using YourShift.Services;
+using YourShift.Models;
 
 [assembly: Rage.Attributes.Plugin("YourShift", Description = "A plugin that shows you how long your shift lasts.", Author = "TheGreenCraft")]
 
@@ -47,7 +47,8 @@ namespace YourShift
 
         private static StatisticsService statisticsService;
 
-
+        StatisticsService statisticsService = new StatisticsService();
+        //DRÜBER
         public static void GetShiftSettings()
         {
             InitializationFile iniFile = new InitializationFile("plugins/LSPDFR/YourShift.ini");
@@ -165,7 +166,6 @@ namespace YourShift
                 {
                     {
                         StatisticModel model = statisticsService.Get(0);
-
                         VersionChecker.isUpdateAvailable();
 
                         int realtime = shiftstopp / 2;
@@ -225,14 +225,14 @@ namespace YourShift
 
         public static void SetWaypoint()
         {
-            /*
-            if (waypointset)
+            /*if (waypointset)
             {
                 Game.Waypoint(targetCoords.X, targetCoords.Y);
                 SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
             }
             Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
             */
+
         }
 
 
@@ -294,9 +294,10 @@ namespace YourShift
 
 
 
-
         private void ShiftTimer()
         {
+
+
             int send_lunch = 0;
             int send_lunchend = 0;
             int send_shiftend = 0;
@@ -504,7 +505,7 @@ namespace YourShift
                     }
                     else if (language.Equals("DE", StringComparison.OrdinalIgnoreCase))
                     {
-                        if (shiftend == 0)
+                        if (send_shiftend == 0) //Fehlerkorrektur für Nachricht 
                         {
                             if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                             {
@@ -583,6 +584,18 @@ namespace YourShift
                     Game.LogTrivial("YOURSHIFT > All messages have been sent. Your shift is over.");
                     Game.LogTrivial("YOURSHIFT > YourShift has been deactivated!");
                     Game.DisplayNotification("~c~YourShift has been stopped");
+
+
+                    //Datenbank
+                    var model = new StatisticModel
+                    {
+                        Shifts = 4,
+                        Rank = Rank.Officer,
+
+
+                    };
+                    statisticsService.Save(model);
+
                     break;
                 }
             }
