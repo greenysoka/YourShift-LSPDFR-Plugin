@@ -337,7 +337,7 @@ namespace YourShift
 
                         if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                         {
-                            Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~~m~ ~n~Current shift time: ~n~~g~{0}~m~ minutes.", count));
+                            Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~~m~ ~n~Current shift time: ~n~~g~{0}~m~ minutes.", showcount));
                         }
                         else if (message.Equals("2nd", StringComparison.OrdinalIgnoreCase))
                         {
