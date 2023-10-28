@@ -14,18 +14,9 @@ namespace YourShift.Services
         // Current Bug: LiteDB can't create the Database, to diffrent aproaches :)
         private string GetConnectionString()
         {
-            try
-            {
-                var path = System.IO.Directory.GetCurrentDirectory();
-                string fullpath = Path.Combine(path, "statistic.db");
-                return fullpath;
-            }
-            catch
-            {
-                string path = @"C:\Temp\";
-                string fullpath = Path.Combine(path, "statistic.db");
-                return fullpath;
-            }
+            var path = System.IO.Directory.GetCurrentDirectory();
+            string fullpath = Path.Combine(path, "statistic.db");
+            return fullpath;
         }
         public void Delete(StatisticModel entity)
         {
