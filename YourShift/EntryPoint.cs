@@ -178,6 +178,7 @@ namespace YourShift
                                 Rank = Rank.Rooki,
                                 Shifts = 69
                             };
+                            model = m;
                         }
 
                         VersionChecker.isUpdateAvailable();
@@ -317,11 +318,15 @@ namespace YourShift
             int send_lunchend = 0;
             int send_shiftend = 0;
             int send_shiftstop = 0;
-            while (onduty || !Game.IsPaused)
+            while (onduty)
             {
                 GameFiber.Sleep(1000);
 
                 count++;
+
+                if (Game.IsPaused){
+                    Game.DisplayNotification(String.Format("PAUSE HAHAHA {0}", count));
+                }
 
                 if (count % (notificationInterval) == 0)
                 {
@@ -333,7 +338,7 @@ namespace YourShift
 
                         if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                         {
-                            Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~~m~ ~n~Current shift time: ~n~~g~{0}~m~ minutes.", showcount));
+                            Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~~m~ ~n~Current shift time: ~n~~g~{0}~m~ minutes.", count));
                         }
                         else if (message.Equals("2nd", StringComparison.OrdinalIgnoreCase))
                         {
