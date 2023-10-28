@@ -46,8 +46,6 @@ namespace YourShift
         private static DateTime lunchEndTime;
 
         private static StatisticsService statisticsService;
-
-        StatisticsService statisticsService = new StatisticsService();
         //DRÜBER
         public static void GetShiftSettings()
         {
@@ -165,7 +163,18 @@ namespace YourShift
                 if(error == false)
                 {
                     {
+                        
                         StatisticModel model = statisticsService.Get(0);
+
+                        if (model == null)
+                        {
+                            var m = new StatisticModel
+                            {
+                                Rank = Rank.Rooki,
+                                Shifts = 0
+                            };
+                        }
+
                         VersionChecker.isUpdateAvailable();
 
                         int realtime = shiftstopp / 2;
@@ -585,16 +594,23 @@ namespace YourShift
                     Game.LogTrivial("YOURSHIFT > YourShift has been deactivated!");
                     Game.DisplayNotification("~c~YourShift has been stopped");
 
-
                     //Datenbank
                     var model = new StatisticModel
                     {
                         Shifts = 4,
                         Rank = Rank.Officer,
-
-
                     };
-                    statisticsService.Save(model);
+
+                    try
+                    {
+                        statisticsService.Update(model);
+                    }
+                    catch (Exception ex)
+                    {
+                        Game.LogTrivial("Databank :(" + ex.Message);
+                    }
+
+                    
 
                     break;
                 }
