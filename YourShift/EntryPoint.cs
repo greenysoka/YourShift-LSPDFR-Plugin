@@ -45,12 +45,15 @@ namespace YourShift
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
         private static DateTime lunchEndTime;
 
+        private static StatisticsService statisticsService;
 
         StatisticsService statisticsService = new StatisticsService();
         //DRÜBER
         public static void GetShiftSettings()
         {
             InitializationFile iniFile = new InitializationFile("plugins/LSPDFR/YourShift.ini");
+
+            statisticsService = new StatisticsService();
 
             language = iniFile.ReadString("Language", "Language", language);
 
@@ -176,7 +179,13 @@ namespace YourShift
                             if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                             {
                                 //Datenbank
-                                Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck {3}~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police, model.Rank.ToString()));
+                                try
+                                {
+                                    Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck {3}~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police, model.Rank.ToString()));
+                                } catch (Exception ex)
+                                {
+                                    Game.LogTrivial("Databank :(" + ex.Message);
+                                }
                             }
                             else if (message.Equals("2nd", StringComparison.OrdinalIgnoreCase))
                             {
@@ -221,7 +230,9 @@ namespace YourShift
                 Game.Waypoint(targetCoords.X, targetCoords.Y);
                 SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
             }
-            Game.DisplayNotification(String.Format("~g~Du hast Pause!"));*/
+            Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
+            */
+
         }
 
 
