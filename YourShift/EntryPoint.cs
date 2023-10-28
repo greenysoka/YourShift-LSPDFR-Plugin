@@ -51,7 +51,7 @@ namespace YourShift
         {
             InitializationFile iniFile = new InitializationFile("plugins/LSPDFR/YourShift.ini");
 
-            statisticsService = new StatisticsService();
+            
 
             language = iniFile.ReadString("Language", "Language", language);
 
@@ -163,15 +163,16 @@ namespace YourShift
                 if(error == false)
                 {
                     {
-                        
-                        StatisticModel model = statisticsService.Get(0);
+                        statisticsService = new StatisticsService();
+                        StatisticModel model = new StatisticModel(); 
+                        model = statisticsService.Get(0);
 
                         if (model == null)
                         {
                             var m = new StatisticModel
                             {
                                 Rank = Rank.Rooki,
-                                Shifts = 0
+                                Shifts = 69
                             };
                         }
 
@@ -190,7 +191,7 @@ namespace YourShift
                                 //Datenbank
                                 try
                                 {
-                                    Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck {3}~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police, model.Rank.ToString()));
+                                    Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck {3} {4}~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police, model.Rank.ToString()), model.Shifts.ToString());
                                 } catch (Exception ex)
                                 {
                                     Game.LogTrivial("Databank :(" + ex.Message);
