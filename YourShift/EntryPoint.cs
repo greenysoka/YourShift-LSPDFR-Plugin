@@ -45,7 +45,7 @@ namespace YourShift
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
         private static DateTime lunchEndTime;
 
-        private static StatisticsService statisticsService;
+        private static StatisticsService statisticsService = new StatisticsService();
         //DRÜBER
         public static void GetShiftSettings()
         {
@@ -163,17 +163,18 @@ namespace YourShift
                 if(error == false)
                 {
                     {
-                        statisticsService = new StatisticsService();
-                        StatisticModel model = new StatisticModel(); 
-                        model = statisticsService.Get(0);
-
-                        if (model == null)
+                        List<StatisticModel> models = new List<StatisticModel>();
+                        models = statisticsService.GetAll();
+                        var model = models.First();
+                        if (models == null)
                         {
                             var m = new StatisticModel
                             {
                                 Rank = Rank.Rooki,
                                 Shifts = 69
                             };
+
+                            model = m;
                         }
 
                         VersionChecker.isUpdateAvailable();
