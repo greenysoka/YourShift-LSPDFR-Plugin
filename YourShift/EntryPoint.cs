@@ -191,7 +191,7 @@ namespace YourShift
                                 //Datenbank
                                 try
                                 {
-                                    Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck {3} {4}~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police, model.Rank.ToString()), model.Shifts.ToString());
+                                    Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck {3} "+ model.Shifts.ToString() + "~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police, model.Rank.ToString()));
                                 } catch (Exception ex)
                                 {
                                     Game.LogTrivial("Databank :(" + ex.Message);
