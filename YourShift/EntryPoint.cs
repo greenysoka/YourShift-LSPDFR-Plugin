@@ -40,6 +40,8 @@ namespace YourShift
         public static string police = "unknown";
         public static bool error = false;
         public static bool waypointset = true;
+        public static bool onduty = false;
+        
 
         private static GameFiber lunchTimer;
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
@@ -158,7 +160,9 @@ namespace YourShift
 
         private void OnOnDutyStateChangedHandler(bool OnDuty)
         {
+            onduty = OnDuty;
             if (OnDuty)
+
 
                 if(error == false)
                 {
@@ -173,7 +177,6 @@ namespace YourShift
                                 Rank = Rank.Rooki,
                                 Shifts = 69
                             };
-
                             model = m;
                         }
 
@@ -309,15 +312,20 @@ namespace YourShift
         {
 
 
+
             int send_lunch = 0;
             int send_lunchend = 0;
             int send_shiftend = 0;
             int send_shiftstop = 0;
-            while (true)
+            while (onduty)
             {
                 GameFiber.Sleep(1000);
 
                 count++;
+
+                if (Game.IsPaused){
+                    Game.DisplayNotification(String.Format("PAUSE HAHAHA {0}", count));
+                }
 
                 if (count % (notificationInterval) == 0)
                 {
@@ -329,7 +337,7 @@ namespace YourShift
 
                         if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                         {
-                            Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~~m~ ~n~Current shift time: ~n~~g~{0}~m~ minutes.", showcount));
+                            Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~~m~ ~n~Current shift time: ~n~~g~{0}~m~ minutes.", count));
                         }
                         else if (message.Equals("2nd", StringComparison.OrdinalIgnoreCase))
                         {
