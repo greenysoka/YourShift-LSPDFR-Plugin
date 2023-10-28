@@ -16,6 +16,8 @@ using LSPD_First_Response.Mod.Callouts;
 using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Engine;
 using System.Runtime.InteropServices.ComTypes;
+using YourShift.Models;
+using YourShift.Services;
 
 [assembly: Rage.Attributes.Plugin("YourShift", Description = "A plugin that shows you how long your shift lasts.", Author = "TheGreenCraft")]
 
@@ -43,11 +45,14 @@ namespace YourShift
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
         private static DateTime lunchEndTime;
 
+        private static StatisticsService statisticsService;
 
 
         public static void GetShiftSettings()
         {
             InitializationFile iniFile = new InitializationFile("plugins/LSPDFR/YourShift.ini");
+
+            statisticsService = new StatisticsService();
 
             language = iniFile.ReadString("Language", "Language", language);
 
@@ -159,6 +164,7 @@ namespace YourShift
                 if(error == false)
                 {
                     {
+                        StatisticModel model = statisticsService.Get(0);
 
                         VersionChecker.isUpdateAvailable();
 
@@ -172,7 +178,14 @@ namespace YourShift
 
                             if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                             {
-                                Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck!~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police));
+                                //Datenbank
+                                try
+                                {
+                                    Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck {3}~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police, model.Rank.ToString()));
+                                } catch (Exception ex)
+                                {
+                                    Game.LogTrivial("Databank :(" + ex.Message);
+                                }
                             }
                             else if (message.Equals("2nd", StringComparison.OrdinalIgnoreCase))
                             {
