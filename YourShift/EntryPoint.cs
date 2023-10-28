@@ -331,7 +331,8 @@ namespace YourShift
                 count++;
 
                 if (Game.IsPaused){
-                    Game.DisplayNotification(String.Format("PAUSE HAHAHA {0}", count));
+                    Game.DisplayNotification(String.Format("PAUSE bei {0}", count));
+                    Game.LogTrivial(String.Format("PAUSE bei {0}", count));
                 }
 
                 if (count % (notificationInterval) == 0)
