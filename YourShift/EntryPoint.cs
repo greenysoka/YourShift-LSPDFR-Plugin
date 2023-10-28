@@ -165,7 +165,7 @@ namespace YourShift
                     {
                         List<StatisticModel> models = new List<StatisticModel>();
                         models = statisticsService.GetAll();
-                        var model = models.First();
+                        var model = new StatisticModel();
                         if (models == null)
                         {
                             var m = new StatisticModel
@@ -175,6 +175,10 @@ namespace YourShift
                             };
 
                             model = m;
+                        }
+                        else
+                        {
+                            model = models.First();
                         }
 
                         VersionChecker.isUpdateAvailable();
