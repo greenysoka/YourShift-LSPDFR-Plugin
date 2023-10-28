@@ -261,7 +261,7 @@ namespace YourShift
 
         private static void UpdateLunchTimer()
         {
-            while ()
+            while (true)
             {
                 TimeSpan remainingTime = lunchEndTime - DateTime.Now;
 
@@ -312,11 +312,12 @@ namespace YourShift
         {
 
 
+
             int send_lunch = 0;
             int send_lunchend = 0;
             int send_shiftend = 0;
             int send_shiftstop = 0;
-            while (onduty)
+            while (onduty || !Game.IsPaused)
             {
                 GameFiber.Sleep(1000);
 
