@@ -40,6 +40,8 @@ namespace YourShift
         public static string police = "unknown";
         public static bool error = false;
         public static bool waypointset = true;
+        public static bool onduty = false;
+        
 
         private static GameFiber lunchTimer;
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
@@ -158,7 +160,9 @@ namespace YourShift
 
         private void OnOnDutyStateChangedHandler(bool OnDuty)
         {
+            onduty = OnDuty;
             if (OnDuty)
+
 
                 if(error == false)
                 {
@@ -257,7 +261,7 @@ namespace YourShift
 
         private static void UpdateLunchTimer()
         {
-            while (true)
+            while ()
             {
                 TimeSpan remainingTime = lunchEndTime - DateTime.Now;
 
@@ -312,7 +316,7 @@ namespace YourShift
             int send_lunchend = 0;
             int send_shiftend = 0;
             int send_shiftstop = 0;
-            while (true)
+            while (onduty)
             {
                 GameFiber.Sleep(1000);
 
