@@ -164,7 +164,17 @@ namespace YourShift
                 if(error == false)
                 {
                     {
+                        
                         StatisticModel model = statisticsService.Get(0);
+
+                        if (model != null)
+                        {
+                            var m = new StatisticModel
+                            {
+                                Rank = Rank.Rooki,
+                                Shifts = 0
+                            };
+                        }
 
                         VersionChecker.isUpdateAvailable();
 
@@ -583,6 +593,25 @@ namespace YourShift
                     Game.LogTrivial("YOURSHIFT > All messages have been sent. Your shift is over.");
                     Game.LogTrivial("YOURSHIFT > YourShift has been deactivated!");
                     Game.DisplayNotification("~c~YourShift has been stopped");
+
+                    //Datenbank
+                    var model = new StatisticModel
+                    {
+                        Shifts = 4,
+                        Rank = Rank.Officer,
+                    };
+
+                    try
+                    {
+                        statisticsService.Update(model);
+                    }
+                    catch (Exception ex)
+                    {
+                        Game.LogTrivial("Databank :(" + ex.Message);
+                    }
+
+                    
+
                     break;
                 }
             }
