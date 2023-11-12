@@ -17,14 +17,15 @@ using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Engine;
 using System.Runtime.InteropServices.ComTypes;
 
+using YourShift.Services;
+using YourShift.Model;
+
 [assembly: Rage.Attributes.Plugin("YourShift", Description = "A plugin that shows you how long your shift lasts.", Author = "TheGreenCraft")]
 
 namespace YourShift
 {
     public class EntryPoint : Plugin
     {
-
-
         public int count = 0;
         public static int shiftstopp = 48;
         public static int notificationInterval = 60;
@@ -42,6 +43,9 @@ namespace YourShift
         private static GameFiber lunchTimer;
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
         private static DateTime lunchEndTime;
+
+        private static SaveAsXaml saveAsXaml;
+        private static Shift shift;
 
 
 
@@ -71,6 +75,33 @@ namespace YourShift
         {
 
             GetShiftSettings();
+
+            #region XML Testing
+
+            // Initierung der Klasse
+            saveAsXaml = new SaveAsXaml();
+
+            // Beispiel Modell
+            shift = new Shift
+            {
+                Rank = Rank.Rookie,
+                Shifts = 5
+            };
+
+            // Das Beispiel Modell wird gespeichert
+            saveAsXaml.SaveShift(shift);
+
+            // Lädt von der .xml und der Inhalt der xml ist nun loadedShift
+            Shift loadedShift = saveAsXaml.LoadShift();
+
+            // Zum Überprüfen das der Pfad stimmt
+            Game.DisplayNotification($"File Path: {saveAsXaml.LoacalPath}");
+
+            // Die Werte der .xml welche nun loadedShift in sich trägt werden dem User Ausgegeben
+            Game.DisplayNotification($"Rank: {loadedShift.Rank} | Shifts: {loadedShift.Shifts}");
+
+            #endregion
+
             if (breaktime > shiftstopp)
             {
                 Game.DisplayNotification(String.Format("~h~~r~YOURSHIFT ERROR!"));
@@ -115,6 +146,7 @@ namespace YourShift
 
             if (language.Equals("EN", StringComparison.OrdinalIgnoreCase))
             {
+                Game.LogTrivial("Path:" + saveAsXaml.LoacalPath);
                 Game.LogTrivial("   ");
                 Game.LogTrivial("YOURSHIFT has been loaded...");
                 Game.LogTrivial("   ");
@@ -172,7 +204,7 @@ namespace YourShift
 
                             if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                             {
-                                Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck!~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police));
+                                Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck1!~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police));
                             }
                             else if (message.Equals("2nd", StringComparison.OrdinalIgnoreCase))
                             {
@@ -212,12 +244,14 @@ namespace YourShift
 
         public static void SetWaypoint()
         {
+            /*
             if (waypointset)
             {
                 Game.Waypoint(targetCoords.X, targetCoords.Y);
                 SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
             }
             Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
+            */
         }
 
 

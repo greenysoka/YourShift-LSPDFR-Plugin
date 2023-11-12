@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntryPoint.cs" />
+    <Compile Include="Model\Shift.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SaveAsXaml.cs" />
     <Compile Include="settings.cs" />
     <Compile Include="VersionChecker\VersionChecker.cs" />
   </ItemGroup>
