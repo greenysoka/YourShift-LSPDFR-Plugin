@@ -17,14 +17,15 @@ using LSPD_First_Response.Engine.Scripting.Entities;
 using LSPD_First_Response.Engine;
 using System.Runtime.InteropServices.ComTypes;
 
+using YourShift.Services;
+using YourShift.Model;
+
 [assembly: Rage.Attributes.Plugin("YourShift", Description = "A plugin that shows you how long your shift lasts.", Author = "TheGreenCraft")]
 
 namespace YourShift
 {
     public class EntryPoint : Plugin
     {
-
-
         public int count = 0;
         public static int shiftstopp = 48;
         public static int notificationInterval = 60;
@@ -38,10 +39,14 @@ namespace YourShift
         public static string police = "unknown";
         public static bool error = false;
         public static bool waypointset = true;
+        public static bool dutystatus {  get; set; }
 
         private static GameFiber lunchTimer;
         private static TimeSpan lunchDuration = TimeSpan.FromMinutes(breaktime);
         private static DateTime lunchEndTime;
+
+        private static SaveAsXaml saveAsXaml;
+        private static Shift loadShift;
 
 
 
@@ -71,6 +76,14 @@ namespace YourShift
         {
 
             GetShiftSettings();
+            loadShift = new Shift();
+            saveAsXaml = new SaveAsXaml();
+            loadShift = saveAsXaml.LoadShift();
+            
+
+
+
+
             if (breaktime > shiftstopp)
             {
                 Game.DisplayNotification(String.Format("~h~~r~YOURSHIFT ERROR!"));
@@ -115,6 +128,7 @@ namespace YourShift
 
             if (language.Equals("EN", StringComparison.OrdinalIgnoreCase))
             {
+                Game.LogTrivial("Path:" + saveAsXaml.LoacalPath);
                 Game.LogTrivial("   ");
                 Game.LogTrivial("YOURSHIFT has been loaded...");
                 Game.LogTrivial("   ");
@@ -155,11 +169,12 @@ namespace YourShift
         private void OnOnDutyStateChangedHandler(bool OnDuty)
         {
             if (OnDuty)
-
-                if(error == false)
-                {
+            {
+                loadShift = saveAsXaml.LoadShift();
+                if (error == false)
+                
                     {
-
+                    dutystatus = true;
                         VersionChecker.isUpdateAvailable();
 
                         int realtime = shiftstopp / 2;
@@ -172,7 +187,7 @@ namespace YourShift
 
                             if (message.Equals("1st", StringComparison.OrdinalIgnoreCase))
                             {
-                                Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck!~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}", realtime, breaktime, police));
+                                Game.DisplayNotification(String.Format("~b~Dispatch:~m~~n~~c~Your shift now begins. Good luck1!~n~~n~~g~Your shift:~n~~s~Length: ~o~{0} hours~n~~s~Break length: ~y~{1} minutes~n~~s~Police Station: ~b~{2}~n~~r~Last Shiftlength: ~b~{3}", realtime, breaktime, police, loadShift.Count));
                             }
                             else if (message.Equals("2nd", StringComparison.OrdinalIgnoreCase))
                             {
@@ -208,17 +223,32 @@ namespace YourShift
                     }
             
             }
+
+            if(OnDuty == false)
+            {
+                Game.LogTrivial("YourShift has been stopped. Shift is over. (OnOnDutyStateChangedHandler)");
+
+                Shift endShift = new Shift
+                {
+                    Count = count,
+                    LastShift = DateTime.Now,
+                };
+
+                saveAsXaml.SaveShift(endShift);
+            }
         }
 
-        public static void SetWaypoint()
-        {
-           // if (waypointset)
-           // {
-           //     Game.Waypoint(targetCoords.X, targetCoords.Y);
-           //     SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
-           // }
-           // Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
-        }
+        /*  public static void SetWaypoint()
+{
+
+  if (waypointset)
+  {
+      Game.Waypoint(targetCoords.X, targetCoords.Y);
+      SpawnBlip.EnableRoute(System.Drawing.Color.Yellow);
+  }
+  Game.DisplayNotification(String.Format("~g~Du hast Pause!"));
+
+    }  */
 
 
         public static void StartLunchBreak()
@@ -286,7 +316,7 @@ namespace YourShift
             int send_lunchend = 0;
             int send_shiftend = 0;
             int send_shiftstop = 0;
-            while (true)
+            while (dutystatus)
             {
                 GameFiber.Sleep(1000);
 
@@ -576,8 +606,18 @@ namespace YourShift
 
         public override void Finally()
         {
-            Game.LogTrivial("YourShift has been stopped. Shift is over.");
+            Game.LogTrivial("YourShift has been stopped. Shift is over. (FINALLY)");
             Game.DisplayNotification(String.Format("~g~YourShift~m~~n~~s~Do you like this plugin? I really appreciate a review on LCPDFR.com! ~n~~y~Have a nice day {0}!", callsign));
+
+            Shift endShift = new Shift
+            {
+                Count = count,
+                LastShift = DateTime.Now,
+            };
+            dutystatus = false;
+            count = 0;
+
+            saveAsXaml.SaveShift(endShift);
         }
     }
 }

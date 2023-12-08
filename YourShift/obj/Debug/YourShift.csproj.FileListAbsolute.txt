@@ -1,0 +1,15 @@
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\YourShift.dll
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\YourShift.pdb
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\LiteDB.dll
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\LSPD First Response.dll
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\RagePluginHook.dll
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\LiteDB.xml
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\LSPD First Response.pdb
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\RagePluginHook.xml
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\bin\Debug\de\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\obj\Debug\YourShift.csproj.AssemblyReference.cache
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\obj\Debug\YourShift.csproj.CoreCompileInputs.cache
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\obj\Debug\YourShift.csproj.CopyComplete
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\obj\Debug\YourShift.dll
+C:\Users\th3gr\Desktop\YourShift DATABASE 1.3\YourShift-SaveAsXml\YourShift-SaveAsXml\YourShift\obj\Debug\YourShift.pdb
