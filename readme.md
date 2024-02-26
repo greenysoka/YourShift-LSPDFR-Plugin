@@ -30,4 +30,4 @@ Just take the 'plugins' folder and drag them to:
 
 In the YourShift.ini file you can customize the plugin according to your needs.
 
-## DOWNLOAD: (https://www.lcpdfr.com/downloads/gta5mods/scripts/45398-yourshift/)[lcpdfr.com Link]
+## DOWNLOAD: [lcpdfr.com Link](https://www.lcpdfr.com/downloads/gta5mods/scripts/45398-yourshift/ )
